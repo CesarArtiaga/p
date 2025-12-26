@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navidad para Ariene 🎄🎞️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- ESTILOS TEMÁTICOS NAVIDEÑOS --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a2b16, #165b33, #5e1b1b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .slide-container {
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh;
+            background: rgba(0, 30, 0, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 25px;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 50px rgba(22, 91, 51, 0.5);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        .active-slide { display: flex; }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* --- ESTILO POLAROID --- */
+        .collage-polaroid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 8px 8px 20px 8px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .polaroid img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .polaroid:hover { transform: scale(1.1) rotate(0deg); z-index: 20; }
+
+        /* --- CHIPS DE MÚSICA --- */
+        .music-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chip {
+            background: rgba(212, 36, 38, 0.8);
+            border: 1px solid #ffd700;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .chip:hover {
+            background: #ffd700;
+            color: #165b33;
+            transform: translateY(-3px);
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(to bottom, #165b33, #0a2b16);
+            padding: 40px 30px;
+            border: 2px solid #ffd700;
+            border-radius: 30px;
+            max-width: 450px;
+            width: 85%;
+            position: relative;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #fff;
+            font-style: italic;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #ffd700;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* --- MENSAJES --- */
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border-top: 3px solid #d42426;
+            border-bottom: 3px solid #d42426;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        .btn-next {
+            background: #d42426;
+            border: 2px solid #ffd700;
+            padding: 12px 30px;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-next:hover { background: #165b33; transform: scale(1.05); }
+
+        /* --- ELEMENTOS NAVIDEÑOS DECORATIVOS --- */
+        /* Luces navideñas */
+        .christmas-light {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            z-index: 1;
+            animation: lightBlink 2s infinite;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        @keyframes lightBlink {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Árbol de Navidad */
+        .christmas-tree {
+            position: absolute;
+            width: 0;
+            height: 0;
+            z-index: 1;
+        }
+
+        .tree-body {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 50px solid #0a5c36;
+        }
+
+        .tree-trunk {
+            position: absolute;
+            top: 150px;
+            left: -10px;
+            width: 20px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 5px;
+        }
+
+        /* Hombre de nieve */
+        .snowman {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .snowman-body {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .snowman-bottom {
+            width: 60px;
+            height: 60px;
+            top: 0;
+        }
+
+        .snowman-middle {
+            width: 45px;
+            height: 45px;
+            top: -30px;
+            left: 7px;
+        }
+
+        .snowman-head {
+            width: 30px;
+            height: 30px;
+            top: -65px;
+            left: 15px;
+        }
+
+        .snowman-hat {
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background: #000;
+            top: -75px;
+            left: 10px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .snowman-hat-top {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #000;
+            top: -85px;
+            left: 15px;
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* Estrellas brillantes */
+        .twinkle-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #fff;
+            animation: twinkle 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Campanas navideñas */
+        .christmas-bell {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: #ffd700;
+            border-radius: 50% 50% 0 0;
+            z-index: 1;
+            animation: bellSwing 4s infinite ease-in-out;
+            transform-origin: top center;
+        }
+
+        @keyframes bellSwing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        /* Nieve */
+        .snow {
+            position: absolute; 
+            top: -10px; 
+            background: white;
+            border-radius: 50%; 
+            pointer-events: none; 
+            opacity: 0.8;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes fall { 
+            to { 
+                transform: translateY(105vh) rotate(360deg); 
+            } 
+        }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; } 
+            to { opacity: 1; } 
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-dreams-of-christmas-294.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="quoteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeQuote()">&times;</span>
+            <p id="quoteText">Cargando...</p>
+        </div>
+    </div>
+
+    <div class="slide-container active-slide" id="slide1">
+        <h1>¡Hola Ariene!</h1>
+        <p>Mmmm como empiezo? No sabo Martha bueno. Primero espero que por lo menos estés teniendo una navidad medianamente buena aunque, sea te hice esto con mucho cariño pero no sé me ocurrió que cosas escribir entonces namás conformate con el regalo y no le prestes mucha atención a las palabras te odio y morite por favor.</p>
+        <button class="btn-next" onclick="nextSlide(2)">🌲 Abrir 🌲</button>
+    </div>
+
+    <div class="slide-container" id="slide2">
+        <div class="polaroid" style="width: 80%; cursor: default; transform: none;">
+            <img src="Awesome Animated Santa Claus Gifs.gif" style="width: 100%; height: 200px;" alt="Navidad">
+        </div>
+        <h1>Feliz Navidad</h1>
+        <p>Mi año ha sido mejor gracias a vos, aunque no te he visto te he sentido presente</p>
+        <button class="btn-next" onclick="nextSlide(3)">Ver Cine 🎬</button>
+    </div>
+
+    <div class="slide-container" id="slide3">
+        <h1>Cine y Mensajes</h1>
+        <div class="collage-polaroid">
+            <!-- Las ventajas de ser invisible -->
+            <div class="polaroid" onclick="showQuote('Como Charlie y Sam, empezamos como amigos de la F1 y descubrimos que somos infinitos en gustos. Esas conversaciones donde el tiempo vuela son nuestros &quot;momentos infinitos&quot;.')">
+                <img src="invisible.jpg">
+                <div style="font-size: 10px; color: #333; margin-top: 5px;">Las ventajas de ser invisible</div>
+            </div>
+            
+            <!-- Almost Famous -->
+            <div class="polaroid" onclick="showQuote('Como William y Penny, compartimos esa pasión por descubrir música y películas. Eres mi &quot;estrella de rock&quot; en esta banda de dos, y las historias que compartimos son nuestro mejor soundtrack.')">
+                <img src="almos.jpg">
+                <div style="font-size: 10px; color: #333; margin-top: 5px;">Almost Famous</div>
+            </div>
+            
+            <!-- In the Mood for Love -->
+            <div class="polaroid" onclick="showQuote('Como Chow Mo-wan y Su Li-zhen, tenemos esa conexión especial que no necesita palabras. Es esa sincronía donde sabemos qué película recomendar sin preguntar, como si bailáramos al mismo ritmo.')">
+                <img src="mod.jpeg">
+                <div style="font-size: 10px; color: #333; margin-top: 5px;">In the Mood for Love</div>
+            </div>
+            
+            <!-- Paris Texas -->
+            <div class="polaroid" onclick="showQuote('Como Travis y Jane, hemos recorrido caminos separados pero encontramos esa conexión única. En cada conversación redescubrimos lo valioso de compartir historias y gustos tan específicos.')">
+                <img src="Paris Texas (1984).jpeg">
+                <div style="font-size: 10px; color: #333; margin-top: 5px;">Paris, Texas</div>
+            </div>
+        </div>
+        <div class="message-box">
+            <p>Me acuerdo cuando empezamos a hablar que supuestamente te gustaba 
+                la F1 que risa jajajajja, pero me gusta mucho que los dos seamos 
+                muy parecidos e igual de pendejos, me gusta compatir mis noches con vos.</p>
+        </div>
+        <button class="btn-next" onclick="nextSlide(4)">Ver Música 🎶</button>
+    </div>
+
+    <div class="slide-container" id="slide4">
+        <h1>Nuestro Soundtrack</h1>
+        
+        <div class="music-chips">
+            <div class="chip" onclick="showQuote('Amo que compartamos el R&B. Es ese ritmo que solo los que sienten profundo entienden.')">🎶 R&B</div>
+            <div class="chip" onclick="showQuote('El Soul es la base de todo. Como nuestra amistad, tiene alma y mucha verdad.')">✨ Soul</div>
+            <div class="chip" onclick="showQuote('Me caes mal, solo te hablo para que me mandes fotos de victoria y reyirme con sus caras.')">💖 Pop</div>
+            <div class="chip" onclick="showQuote('Could I be the one/I´ll be here whenever you need me... Al Green sabe que las conexiones buenas se mantienen.')">🎤 Al Green</div>
+            <div class="chip" onclick="showQuote('Barbara Manson y esas voces que nos transportan a otro tiempo. Gracias por descubrir música conmigo.')">📻 B. Manson</div>
+            <div class="chip" onclick="showQuote('Lauryn Hill decía que todo es cuestión de amor. Y qué suerte que el nuestro sea musical.')">👑 Lauryn Hill</div>
+        </div>
+
+        <div class="collage-polaroid">
+            <div class="polaroid" onclick="showQuote('Los artistas que amamos se convierten en cómplices de nuestras emociones.')">
+                <img src="The Five Stairsteps - The First Family Of Soul_ The Best Of The Five Stairsteps.jpeg" alt="Swift">
+            </div>
+            <div class="polaroid" onclick="showQuote('Hay canciones que son universos enteros. Cuando encontramos a alguien que habita el mismo universo musical, descubrimos que la música no solo se escucha, se siente en conjunto.')">
+                <img src="descarga (25).jpeg" alt="Swift 2">
+            </div>
+        </div>
+        <div class="collage-polaroid">
+            <div class="polaroid" onclick="showQuote('La música es el lenguaje del alma que no necesita traducción. Cuando compartimos una canción, estamos compartiendo un pedazo de nuestro corazón sin decir una palabra.')">
+                <img src="274 Chi Lites Photos & High Res Pictures - Getty Images.jpeg" alt="Swift">
+            </div>
+            <div class="polaroid" onclick="showQuote('Me caes mal porque lit sos mi alma gemela musical mica del demonio.')">
+                <img src="Marvin Gaye.jpeg" alt="Swift 2">
+            </div>
+        </div>
+
+
+        <div class="message-box">
+            <p>Me encanta que no tenga que explicarte por qué una canción es buena vos simplemente la sentes igual que yo.</p>
+        </div>
+        <button class="btn-next" onclick="nextSlide(5)">Final ✨</button>
+    </div>
+
+    <div class="slide-container" id="slide5">
+        <h1>💫 Japy Crismas ✨</h1>
+        <p>Que tu Navidad sea tan especial como la trama de tu pelicula favorita.</p>
+        <button class="btn-next" onclick="resetSlides()">Rebobinar ↺</button>
+    </div>
+
+    <script>
+        function showQuote(text) {
+            document.getElementById('quoteText').innerText = text;
+            document.getElementById('quoteModal').style.display = "flex";
+        }
+
+        function closeQuote() {
+            document.getElementById('quoteModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            let modal = document.getElementById('quoteModal');
+            if (event.target == modal) closeQuote();
+        }
+
+        function nextSlide(n) {
+            const music = document.getElementById('bg-music');
+            if (n === 2 && music.paused) {
+                music.volume = 0.3;
+                music.play();
+            }
+            document.querySelectorAll('.slide-container').forEach(s => s.classList.remove('active-slide'));
+            document.getElementById('slide' + n).classList.add('active-slide');
+            if(n === 5) createHeartRain();
+        }
+
+        function resetSlides() { 
+            nextSlide(1); 
+        }
+
+        // Función para crear luces navideñas
+        function createChristmasLights() {
+            const colors = ['#ff0000', '#00ff00', '#ffff00', '#ff00ff', '#00ffff', '#ff8800'];
+            const container = document.body;
+            
+            // Crear luces en los bordes de la pantalla
+            for(let i = 0; i < 30; i++) {
+                const light = document.createElement('div');
+                light.className = 'christmas-light';
+                
+                // Alternar entre bordes superior e inferior
+                if(i % 2 === 0) {
+                    light.style.top = '10px';
+                    light.style.left = (i * (window.innerWidth / 15)) + 'px';
+                } else {
+                    light.style.bottom = '10px';
+                    light.style.left = ((i-1) * (window.innerWidth / 15)) + 'px';
+                }
+                
+                light.style.backgroundColor = colors[i % colors.length];
+                light.style.animationDelay = (i * 0.2) + 's';
+                container.appendChild(light);
+            }
+        }
+
+        // Función para crear árboles de Navidad
+        function createChristmasTrees() {
+            const container = document.body;
+            
+            for(let i = 0; i < 4; i++) {
+                const tree = document.createElement('div');
+                tree.className = 'christmas-tree';
+                
+                // Posiciones aleatorias en los lados
+                if(i % 2 === 0) {
+                    tree.style.left = (20 + i * 10) + 'px';
+                } else {
+                    tree.style.right = (20 + (i-1) * 10) + 'px';
+                }
+                
+                tree.style.bottom = '50px';
+                tree.style.zIndex = '1';
+                
+                // Crear capas del árbol
+                for(let j = 0; j < 3; j++) {
+                    const treeLayer = document.createElement('div');
+                    treeLayer.className = 'tree-body';
+                    treeLayer.style.top = (j * 30) + 'px';
+                    treeLayer.style.left = (-25 + j * 5) + 'px';
+                    treeLayer.style.borderBottomColor = j === 0 ? '#0a5c36' : j === 1 ? '#0d7e44' : '#0f9c52';
+                    tree.appendChild(treeLayer);
+                }
+                
+                // Tronco del árbol
+                const trunk = document.createElement('div');
+                trunk.className = 'tree-trunk';
+                tree.appendChild(trunk);
+                
+                // Decoraciones (luces en el árbol)
+                for(let d = 0; d < 8; d++) {
+                    const decoration = document.createElement('div');
+                    decoration.className = 'christmas-light';
+                    decoration.style.width = '8px';
+                    decoration.style.height = '8px';
+                    decoration.style.position = 'absolute';
+                    decoration.style.top = (10 + Math.random() * 70) + 'px';
+                    decoration.style.left = (-15 + Math.random() * 30) + 'px';
+                    decoration.style.backgroundColor = ['#ff0000', '#ffff00', '#00ffff'][d % 3];
+                    decoration.style.animationDelay = (d * 0.5) + 's';
+                    tree.appendChild(decoration);
+                }
+                
+                container.appendChild(tree);
+            }
+        }
+
+        // Función para crear hombres de nieve
+        function createSnowmen() {
+            const container = document.body;
+            
+            for(let i = 0; i < 2; i++) {
+                const snowman = document.createElement('div');
+                snowman.className = 'snowman';
+                
+                // Posicionar hombres de nieve
+                if(i === 0) {
+                    snowman.style.left = '80px';
+                } else {
+                    snowman.style.right = '80px';
+                }
+                
+                snowman.style.bottom = '50px';
+                
+                // Crear cuerpo del hombre de nieve
+                const bottom = document.createElement('div');
+                bottom.className = 'snowman-body snowman-bottom';
+                
+                const middle = document.createElement('div');
+                middle.className = 'snowman-body snowman-middle';
+                
+                const head = document.createElement('div');
+                head.className = 'snowman-body snowman-head';
+                
+                // Sombrero
+                const hat = document.createElement('div');
+                hat.className = 'snowman-hat';
+                
+                const hatTop = document.createElement('div');
+                hatTop.className = 'snowman-hat-top';
+                
+                // Ojos y botones (simplificados)
+                for(let e = 0; e < 3; e++) {
+                    const eye = document.createElement('div');
+                    eye.className = 'christmas-light';
+                    eye.style.width = '4px';
+                    eye.style.height = '4px';
+                    eye.style.position = 'absolute';
+                    eye.style.backgroundColor = '#000';
+                    
+                    if(e === 0) {
+                        eye.style.top = '-55px';
+                        eye.style.left = '20px';
+                    } else if(e === 1) {
+                        eye.style.top = '-55px';
+                        eye.style.left = '35px';
+                    } else {
+                        eye.style.top = '-40px';
+                        eye.style.left = '27px';
+                    }
+                    
+                    snowman.appendChild(eye);
+                }
+                
+                snowman.appendChild(bottom);
+                snowman.appendChild(middle);
+                snowman.appendChild(head);
+                snowman.appendChild(hat);
+                snowman.appendChild(hatTop);
+                
+                container.appendChild(snowman);
+            }
+        }
+
+        // Función para crear estrellas brillantes
+        function createStars() {
+            const container = document.body;
+            
+            for(let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'twinkle-star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // Función para crear campanas navideñas
+        function createBells() {
+            const container = document.body;
+            
+            for(let i = 0; i < 3; i++) {
+                const bell = document.createElement('div');
+                bell.className = 'christmas-bell';
+                bell.style.left = (100 + i * 100) + 'px';
+                bell.style.top = '50px';
+                bell.style.animationDelay = i + 's';
+                
+                // Detalle de la campana
+                const bellDetail = document.createElement('div');
+                bellDetail.style.position = 'absolute';
+                bellDetail.style.width = '10px';
+                bellDetail.style.height = '10px';
+                bellDetail.style.backgroundColor = '#8B4513';
+                bellDetail.style.borderRadius = '50%';
+                bellDetail.style.bottom = '5px';
+                bellDetail.style.left = '7.5px';
+                bell.appendChild(bellDetail);
+                
+                container.appendChild(bell);
+            }
+        }
+
+        function createSnow() {
+            const container = document.body;
+            setInterval(() => {
+                const flake = document.createElement('div');
+                flake.className = 'snow';
+                const size = Math.random() * 5 + 2;
+                flake.style.width = size + 'px';
+                flake.style.height = size + 'px';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                container.appendChild(flake);
+                setTimeout(() => flake.remove(), 5000);
+            }, 150);
+        }
+
+        function createHeartRain() {
+            for(let i=0; i<30; i++) {
+                let h = document.createElement('div');
+                h.innerHTML = '❤️';
+                h.style.position = 'fixed';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.top = '-50px';
+                h.style.fontSize = '20px';
+                h.style.transition = 'top 3s linear';
+                h.style.zIndex = '5';
+                document.body.appendChild(h);
+                setTimeout(() => h.style.top = '110vh', 100);
+                setTimeout(() => h.remove(), 3500);
+            }
+        }
+
+        // Inicializar todas las decoraciones navideñas
+        document.addEventListener('DOMContentLoaded', function() {
+            createChristmasLights();
+            createChristmasTrees();
+            createSnowmen();
+            createStars();
+            createBells();
+            createSnow();
+        });
+    </script>
+</body>
+</html>
